@@ -500,7 +500,8 @@
     // TODO: replace with a real request, e.g.
     //   fetch('/api/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      // const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch('https://omnifood-fullstack-delivery.onrender.com/api/signup', {  
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
