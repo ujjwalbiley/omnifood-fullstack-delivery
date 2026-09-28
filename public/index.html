@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnifood | Healthy meals delivered in 20 minutes</title>
+    <meta name="description" content="Omnifood delivers chef-made, organic meals to your door in 20 minutes. Order a single meal or pick a plan.">
+
+    <!-- Set theme + "js" flag before first paint so there is no flash -->
+    <script>
+        document.documentElement.classList.add('js');
+        try {
+            var t = localStorage.getItem('of-theme');
+            t = t ? JSON.parse(t) : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.dataset.theme = t;
+        } catch (e) { }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <script src="resources/js/script.js" defer></script>
+</head>
+
+<body>
+    <!-- Icon sprite -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+        <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+        <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+        <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+        <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/></symbol>
+        <symbol id="i-twitter" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></symbol>
+        <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+        <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+    </svg>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="site-header" id="top" data-open="false">
+        <div class="nav">
+            <a class="brand" href="#top" aria-label="Omnifood, back to top">
+                <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+                omnifood
+            </a>
+
+            <nav class="nav-links" id="navLinks" aria-label="Main">
+                <a href="#feature">Food delivery</a>
+                <a href="#menu">Menu</a>
+                <a href="#hiw">How it works</a>
+                <a href="#city">Our cities</a>
+                <a href="#plans">Plans</a>
+                <a href="#signup" class="nav-cta">Sign up</a>
+            </nav>
+
+            <div class="nav-tools">
+                <button class="icon-btn theme-toggle" id="themeBtn" type="button" aria-label="Switch to dark theme">
+                    <svg class="icon i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+                    <svg class="icon i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+                </button>
+                <button class="icon-btn" id="cartBtn" type="button" aria-label="Open bag" aria-controls="drawer">
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+                    <span class="badge" id="cartBadge" hidden>0</span>
+                </button>
+                <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+                    <svg class="icon i-menu" aria-hidden="true"><use href="#i-menu"/></svg>
+                    <svg class="icon i-close" aria-hidden="true"><use href="#i-x"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- ===================== HERO ===================== -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-grid">
+                <div>
+                    <h1 id="hero-title" data-rise style="--i:0">
+                        Goodbye junk <span class="pill pill-a" aria-hidden="true"></span> food. Hello super healthy <span class="pill pill-b" aria-hidden="true"></span> meals.
+                    </h1>
+                    <p class="lead" data-rise style="--i:2">Chef-made, organic meals at your door in 20 minutes. Pick a plan, or order a single meal tonight.</p>
+                    <div class="hero-actions" data-rise style="--i:3">
+                        <a class="btn btn-primary" href="#menu">I'm hungry</a>
+                        <a class="btn btn-ghost" href="#feature">Show me more</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="arch" role="img" aria-label="A bowl of fresh, healthy food"></div>
+                    <div class="chip chip-eaters">
+                        <div class="avatars" aria-hidden="true">
+                            <img src="resources/css/img/customer-1.jpg" alt="" width="34" height="34">
+                            <img src="resources/css/img/customer-2.jpg" alt="" width="34" height="34">
+                            <img src="resources/css/img/customer-3.jpg" alt="" width="34" height="34">
+                        </div>
+                        <div><strong>6,400+</strong><small>happy eaters</small></div>
+                    </div>
+                    <div class="chip chip-eta">
+                        <span class="pulse" aria-hidden="true"></span>
+                        <div><strong>Order now, eat by <time id="etaTime">--:--</time></strong><small>Cooked to order, at your door in 20 minutes</small></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== FEATURES ===================== -->
+        <section class="section" id="feature" aria-labelledby="feature-title">
+            <div class="section-head">
+                <h2 id="feature-title">Get food fast, not fast food</h2>
+                <p>We're Omnifood, a premium food delivery service for people with no time to cook. We take care of the cooking, and we're very good at it.</p>
+            </div>
+
+            <div class="bento">
+                <article class="tile tile-a">
+                    <ul class="week" aria-hidden="true">
+                        <li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li><li>S</li>
+                    </ul>
+                    <h3>Up to 365 days</h3>
+                    <p>Never cook again. Subscription plans cover every day of the year, or order flexibly when it suits you.</p>
+                </article>
+
+                <article class="tile tile-b" id="tileTime">
+                    <div class="ring" aria-hidden="true">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="ring-track" cx="60" cy="60" r="52"/>
+                            <circle class="ring-bar" cx="60" cy="60" r="52" pathLength="100"/>
+                        </svg>
+                        <span><b>20</b>minutes</span>
+                    </div>
+                    <div>
+                        <h3>Ready in 20 minutes</h3>
+                        <p style="margin-top:12px">Chefs in every city cook to order, so your healthy meal is only twenty minutes from your door.</p>
+                    </div>
+                </article>
+
+                <article class="tile tile-c">
+                    <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+                    <h3>100% organic</h3>
+                    <p>Every ingredient is organic and every meal is cooked from scratch.</p>
+                </article>
+
+                <article class="tile tile-d">
+                    <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg></span>
+                    <h3>Order anything</h3>
+                    <p>The menu changes every week. Build a bag from your favourites and check out in one step.</p>
+                    <a class="btn btn-ghost btn-sm" href="#menu">Browse the menu</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================== MENU ===================== -->
+        <section class="section section-menu" id="menu" aria-labelledby="menu-title">
+            <div class="section-head">
+                <h2 id="menu-title">This week's menu</h2>
+                <p>Add meals to your bag and check out in one step. Delivery is free on orders over $30.</p>
+            </div>
+
+            <div class="filters" role="group" aria-label="Filter meals">
+                <button class="filter" type="button" data-filter="all" aria-pressed="true">All meals</button>
+                <button class="filter" type="button" data-filter="vegan" aria-pressed="false">Vegan</button>
+                <button class="filter" type="button" data-filter="high-protein" aria-pressed="false">High protein</button>
+                <button class="filter" type="button" data-filter="low-carb" aria-pressed="false">Low carb</button>
+                <button class="filter" type="button" data-filter="light" aria-pressed="false">Under 450 kcal</button>
+                <span class="menu-status" id="menuStatus" role="status"></span>
+            </div>
+
+            <div class="menu-grid" id="menuGrid"></div>
+        </section>
+
+        <!-- ===================== HOW IT WORKS ===================== -->
+        <section class="section section-alt" id="hiw" aria-labelledby="hiw-title">
+            <div class="how-grid">
+                <div class="phone">
+                    <img src="resources/css/img/app-iPhone.png" alt="The Omnifood app on a phone" width="600" height="1200" loading="lazy">
+                </div>
+
+                <div class="how-copy">
+                    <h2 id="hiw-title">Simple as 1, 2, 3</h2>
+                    <ol class="steps" id="steps">
+                        <li class="step is-active">
+                            <span class="step-num" aria-hidden="true">1</span>
+                            <div><h3>Choose a plan</h3><p>Pick the plan that fits your week, then sign up today.</p></div>
+                        </li>
+                        <li class="step">
+                            <span class="step-num" aria-hidden="true">2</span>
+                            <div><h3>Pay and download the app</h3><p>Pay for your plan, then get the app on iOS or Android.</p></div>
+                        </li>
+                        <li class="step">
+                            <span class="step-num" aria-hidden="true">3</span>
+                            <div><h3>Start ordering</h3><p>Choose your meals and we'll bring them in about 20 minutes.</p></div>
+                        </li>
+                    </ol>
+                    <div class="app-links">
+                        <a href="#"><img src="resources/css/img/download-app-android.png" alt="Get it on Google Play" height="48"></a>
+                        <a href="#"><img src="resources/css/img/download-app.svg" alt="Download on the App Store" height="48"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== CITIES ===================== -->
+        <section class="section" id="city" aria-labelledby="city-title">
+            <div class="cities">
+                <div class="cities-copy">
+                    <h2 id="city-title">We're currently in these cities</h2>
+                    <div class="city-tabs" role="tablist" aria-label="Cities" aria-orientation="vertical">
+                        <button class="city-tab" role="tab" type="button" id="tab-lisbon" aria-selected="true" aria-controls="cityPanel" data-city="lisbon" data-eaters="1600" data-chefs="50" data-handle="@Omnifood_li">Lisbon</button>
+                        <button class="city-tab" role="tab" type="button" id="tab-berlin" aria-selected="false" tabindex="-1" aria-controls="cityPanel" data-city="berlin" data-eaters="1400" data-chefs="70" data-handle="@Omnifood_br">Berlin</button>
+                        <button class="city-tab" role="tab" type="button" id="tab-san-francisco" aria-selected="false" tabindex="-1" aria-controls="cityPanel" data-city="san-francisco" data-eaters="1800" data-chefs="50" data-handle="@Omnifood_sf">San Francisco</button>
+                        <button class="city-tab" role="tab" type="button" id="tab-london" aria-selected="false" tabindex="-1" aria-controls="cityPanel" data-city="london" data-eaters="1600" data-chefs="50" data-handle="@Omnifood_ld">London</button>
+                    </div>
+                </div>
+
+                <div class="city-panel" id="cityPanel" role="tabpanel" aria-labelledby="tab-lisbon">
+                    <div class="city-images">
+                        <img class="is-active" data-city="lisbon" src="resources/css/img/lisbon-3.jpg" alt="Lisbon" width="1200" height="750" loading="lazy">
+                        <img data-city="berlin" src="resources/css/img/berlin.jpg" alt="Berlin" width="1200" height="750" loading="lazy">
+                        <img data-city="san-francisco" src="resources/css/img/san-francisco.jpg" alt="San Francisco" width="1200" height="750" loading="lazy">
+                        <img data-city="london" src="resources/css/img/london.jpg" alt="London" width="1200" height="750" loading="lazy">
+                    </div>
+                    <div class="city-stats">
+                        <div class="stat"><strong id="statEaters">1,600+</strong><span>happy eaters</span></div>
+                        <div class="stat"><strong id="statChefs">50+</strong><span>chefs</span></div>
+                        <a class="handle" id="cityHandle" href="#"><svg class="icon" aria-hidden="true"><use href="#i-twitter"/></svg><span id="cityHandleText">@Omnifood_li</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== TESTIMONIALS ===================== -->
+        <section class="section section-proof" aria-labelledby="proof-title">
+            <div class="proof">
+                <h2 id="proof-title">Our customers can't live without us</h2>
+
+                <div class="quotes" id="quotes">
+                    <figure class="quote is-active" role="tabpanel" id="q-0" aria-labelledby="qt-0">
+                        <blockquote>Omnifood launched just as my startup left me with no time for cooking, so it's been a lifesaver. Now I couldn't live without my daily meals.</blockquote>
+                        <figcaption>Alberto Duncan</figcaption>
+                    </figure>
+                    <figure class="quote" role="tabpanel" id="q-1" aria-labelledby="qt-1" aria-hidden="true">
+                        <blockquote>Inexpensive, healthy and great-tasting meals, delivered right to my home. There's lots of food delivery in Lisbon, but no one comes close to Omnifood. My family and I are in love.</blockquote>
+                        <figcaption>Joana Silva</figcaption>
+                    </figure>
+                    <figure class="quote" role="tabpanel" id="q-2" aria-labelledby="qt-2" aria-hidden="true">
+                        <blockquote>I was looking for a quick food delivery service in San Francisco and tried a lot of them. I ended up with Omnifood, the best delivery service in the Bay Area. Keep it up!</blockquote>
+                        <figcaption>Milton Chapman</figcaption>
+                    </figure>
+                </div>
+
+                <div class="proof-controls">
+                    <div class="quote-tabs" role="tablist" aria-label="Customer stories">
+                        <button class="quote-tab" role="tab" type="button" id="qt-0" aria-selected="true" aria-controls="q-0"><img src="resources/css/img/customer-1.jpg" alt="" width="40" height="40">Alberto</button>
+                        <button class="quote-tab" role="tab" type="button" id="qt-1" aria-selected="false" tabindex="-1" aria-controls="q-1"><img src="resources/css/img/customer-2.jpg" alt="" width="40" height="40">Joana</button>
+                        <button class="quote-tab" role="tab" type="button" id="qt-2" aria-selected="false" tabindex="-1" aria-controls="q-2"><img src="resources/css/img/customer-3.jpg" alt="" width="40" height="40">Milton</button>
+                    </div>
+                    <div class="proof-arrows">
+                        <button class="icon-btn" id="quotePrev" type="button" aria-label="Previous story"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+                        <button class="icon-btn" id="quoteNext" type="button" aria-label="Next story"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== PLANS ===================== -->
+        <section class="section" id="plans" aria-labelledby="plans-title">
+            <div class="section-head">
+                <h2 id="plans-title">Start eating healthy today</h2>
+                <p>Pick a plan, or pay per meal. Choosing yearly billing saves 20% on Pro and Premium.</p>
+            </div>
+
+            <div class="billing">
+                <div class="seg" role="group" aria-label="Billing period">
+                    <button type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+                    <button type="button" data-billing="yearly" aria-pressed="false">Yearly <span class="save">Save 20%</span></button>
+                </div>
+            </div>
+
+            <div class="plans">
+                <article class="plan plan-featured" data-plan="pro" data-name="Pro" data-monthly="399" data-meals="30" data-type="sub">
+                    <h3 class="plan-name">Pro <span class="plan-flag">Best value</span></h3>
+                    <div class="plan-price"><span class="cur">$</span><span class="amt">399</span><span class="per">/ month</span></div>
+                    <p class="plan-note"></p>
+                    <ul>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>1 meal every day</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Order 24/7</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Access to the newest creations</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Free delivery</li>
+                    </ul>
+                    <button class="btn btn-lime" type="button" data-choose="pro">Choose Pro</button>
+                </article>
+
+                <article class="plan" data-plan="premium" data-name="Premium" data-monthly="199" data-meals="13" data-type="sub">
+                    <h3 class="plan-name">Premium</h3>
+                    <div class="plan-price"><span class="cur">$</span><span class="amt">199</span><span class="per">/ month</span></div>
+                    <p class="plan-note"></p>
+                    <ul>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>3 meals a week</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Order 24/7</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Access to the newest creations</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Free delivery</li>
+                    </ul>
+                    <button class="btn btn-ghost" type="button" data-choose="premium">Choose Premium</button>
+                </article>
+
+                <article class="plan" data-plan="basic" data-name="Basic" data-type="single">
+                    <h3 class="plan-name">Basic</h3>
+                    <div class="plan-price"><span class="cur">$</span><span class="amt">19</span><span class="per">/ meal</span></div>
+                    <p class="plan-note">Pay as you go, no commitment.</p>
+                    <ul>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>1 meal whenever you like</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Order 24/7</li>
+                        <li class="is-off"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>Access to the newest creations</li>
+                        <li class="is-off"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>Free delivery</li>
+                    </ul>
+                    <button class="btn btn-ghost" type="button" data-choose="basic">Choose Basic</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================== SIGN UP ===================== -->
+        <section class="section section-alt" id="signup" aria-labelledby="signup-title">
+            <div class="signup">
+                <div class="signup-aside">
+                    <h2 id="signup-title">We're happy to hear from you</h2>
+                    <p>Choose a plan, place an order, or just say hello. We reply within one working day.</p>
+                    <div class="order-summary" id="orderSummary" hidden></div>
+                </div>
+
+                <div class="form-card">
+                    <form class="form" id="signupForm" novalidate>
+                        <div class="row-2">
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input class="input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required aria-describedby="err-name">
+                                <span class="error" id="err-name"></span>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="err-email">
+                                <span class="error" id="err-email"></span>
+                            </div>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="field">
+                                <label for="interest">I'm interested in</label>
+                                <select class="input" id="interest" name="interest">
+                                    <option value="unsure">Not sure yet</option>
+                                    <option value="pro">Pro plan</option>
+                                    <option value="premium">Premium plan</option>
+                                    <option value="basic">Basic (pay per meal)</option>
+                                    <option value="order">My meal order</option>
+                                    <option value="hello">Just saying hello</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="find-us">How did you find us?</label>
+                                <select class="input" id="find-us" name="find-us">
+                                    <option value="friends">Friends</option>
+                                    <option value="search">Search engine</option>
+                                    <option value="ad">Advertisement</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="message">Drop us a line <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+                            <textarea class="input" id="message" name="message" rows="4" placeholder="Allergies, delivery notes, questions"></textarea>
+                        </div>
+
+                        <label class="check">
+                            <input type="checkbox" name="news" checked>
+                            <span class="track" aria-hidden="true"></span>
+                            Send me the weekly menu
+                        </label>
+
+                        <button class="btn btn-primary" type="submit" id="submitBtn">Send message</button>
+                    </form>
+
+                    <div class="success" id="formSuccess" role="status" tabindex="-1" hidden>
+                        <span class="success-mark"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+                        <h3 id="successTitle">Thanks, you're in.</h3>
+                        <p id="successText"></p>
+                        <button class="btn btn-ghost" type="button" id="againBtn">Send another message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-top">
+            <nav aria-label="Footer">
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">iOS app</a></li>
+                    <li><a href="#">Android app</a></li>
+                </ul>
+            </nav>
+            <div class="social">
+                <a href="#" aria-label="Facebook"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a>
+                <a href="#" aria-label="Twitter"><svg class="icon" aria-hidden="true"><use href="#i-twitter"/></svg></a>
+                <a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a>
+            </div>
+        </div>
+        <p class="copyright">Copyright &copy; <span id="year">2026</span> Omnifood. All rights reserved.</p>
+    </footer>
+
+    <!-- ===================== CART DRAWER ===================== -->
+    <div class="scrim" id="scrim"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" inert>
+        <div class="drawer-head">
+            <h2 id="drawer-title">Your bag</h2>
+            <button class="icon-btn" id="closeCart" type="button" aria-label="Close bag"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </div>
+        <div class="drawer-body" id="drawerBody"></div>
+        <div class="drawer-foot" id="drawerFoot" hidden>
+            <div class="ship">
+                <span id="shipMsg"></span>
+                <div class="ship-bar" aria-hidden="true"><i id="shipBar"></i></div>
+            </div>
+            <div class="totals">
+                <div><span>Subtotal</span><span id="tSub"></span></div>
+                <div><span>Delivery</span><span id="tFee"></span></div>
+                <div class="grand"><span>Total</span><span id="tTotal"></span></div>
+            </div>
+            <button class="btn btn-primary" id="checkoutBtn" type="button">Continue to sign up</button>
+        </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+
+</html>
