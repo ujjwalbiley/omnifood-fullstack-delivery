@@ -107,7 +107,7 @@
   /* ---------- 3. Menu data + cart ----------
      Edit this list to match your own food photos (resources/css/img/1.jpg ... 8.jpg).
      Filter tags (vegan / high-protein / low-carb / light) are worked out from the numbers. */
-  const IMG = 'resources/css/img/';
+  const IMG = 'public/resources/css/img/';
   const MEALS = [
     { id: 'buddha-bowl',   name: 'Rainbow Buddha Bowl',     img: '1.jpg', price: 12, kcal: 480, protein: 18, carbs: 62, vegan: true },
     { id: 'salmon-greens', name: 'Grilled Salmon & Greens', img: '2.jpg', price: 16, kcal: 520, protein: 38, carbs: 14 },
